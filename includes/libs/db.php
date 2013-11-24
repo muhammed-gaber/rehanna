@@ -15,7 +15,7 @@ class db {
     /**
      * @var array of database information
      */
-    private $db_info = array("host" => "localhost", "dbname" => "reb7", "username" => "root", "password" => "123");
+    private $db_info = array("host" => "localhost", "dbname" => "rehanna_users", "username" => "root", "password" => "123");
 
     /**
      * @var object of mysqli 
@@ -93,11 +93,11 @@ class db {
      * @throws Exception
      */
     public function query($query) {
-        $rst = $this->dbh->query($query);
+        $rst = self::$dbh->query($query);
 
-        if ($this->dbh->error) {
+        if (self::$dbh->error) {
             try {
-                throw new Exception("MySQL error {$this->dbh->error} <br> Query:<br> $query", $this->dbh->errno);
+                throw new Exception("MySQL error {".self::$dbh->error."} <br> Query:<br> $query", self::$dbh->errno);
             } catch (Exception $e) {
                 // error handler
                 echo "Error No: " . $e->getCode() . " - " . $e->getMessage() . "<br >";
@@ -124,7 +124,7 @@ class db {
      * @return int of last insert id
      */
     public function insert_id() {
-        return $this->dbh->insert_id;
+        return self::$dbh->insert_id;
     }
 
     /**
@@ -132,7 +132,7 @@ class db {
      * @return string converted by mysqli real_escape_string
      */
     public function real_escape_string($name) {
-        return $this->dbh->real_escape_string($name);
+        return self::$dbh->real_escape_string($name);
     }
 
     // mirror functions 
@@ -150,7 +150,7 @@ class db {
      * @return boolean
      */
     function close() {
-        return $this->dbh->close();
+        return self::$dbh->close();
     }
 
     /**
@@ -162,20 +162,20 @@ class db {
     }
 
     function multi_query($query) {
-        $rst = $this->dbh->multi_query($query);
-        $result = $this->dbh->store_result();
+        $rst = self::$dbh->multi_query($query);
+        $result = self::$dbh->store_result();
 
-        if ($this->dbh->error) {
+        if (self::$dbh->error) {
             try {
-                throw new Exception("MySQL error {$this->dbh->error} <br> Query:<br> $query", $this->dbh->errno);
+                throw new Exception("MySQL error {self::$dbh->error} <br> Query:<br> $query", self::$dbh->errno);
             } catch (Exception $e) {
                 // error handler
                 echo "Error No: " . $e->getCode() . " - " . $e->getMessage() . "<br >";
                 exit(nl2br($e->getTraceAsString()));
             }
         }
-        if (mysqli_more_results($this->dbh)) {
-            mysqli_next_result($this->dbh);
+        if (mysqli_more_results(self::$dbh)) {
+            mysqli_next_result(self::$dbh);
         }
 
         return $result;
