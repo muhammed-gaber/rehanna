@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2013 at 12:09 AM
+-- Generation Time: Nov 24, 2013 at 04:42 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -19,8 +19,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `rehanna_users`
 --
-CREATE DATABASE IF NOT EXISTS `rehanna_users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `rehanna_users` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `rehanna_users`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `login_logs` (
+  `login_id` int(11) NOT NULL,
+  `login_date` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `login_ip` varchar(20) NOT NULL,
+  `is_logged` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -89,7 +103,6 @@ CREATE TABLE IF NOT EXISTS `rehanna_sys_users` (
   `sys_users_password` varchar(20) NOT NULL,
   `sys_users_type` int(7) NOT NULL,
   `is_blocked` int(1) NOT NULL,
-  `is_deleted` int(1) NOT NULL,
   PRIMARY KEY (`sys_users_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
