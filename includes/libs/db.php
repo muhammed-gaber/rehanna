@@ -97,7 +97,7 @@ class db {
 
         if (self::$dbh->error) {
             try {
-                throw new Exception("MySQL error {".self::$dbh->error."} <br> Query:<br> $query", self::$dbh->errno);
+                throw new Exception("MySQL error {" . self::$dbh->error . "} <br> Query:<br> $query", self::$dbh->errno);
             } catch (Exception $e) {
                 // error handler
                 echo "Error No: " . $e->getCode() . " - " . $e->getMessage() . "<br >";
@@ -167,7 +167,7 @@ class db {
 
         if (self::$dbh->error) {
             try {
-                throw new Exception("MySQL error {self::$dbh->error} <br> Query:<br> $query", self::$dbh->errno);
+                throw new Exception("MySQL error {" . self::$dbh->error . "} <br> Query:<br> $query", self::$dbh->errno);
             } catch (Exception $e) {
                 // error handler
                 echo "Error No: " . $e->getCode() . " - " . $e->getMessage() . "<br >";

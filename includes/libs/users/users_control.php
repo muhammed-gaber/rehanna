@@ -94,7 +94,7 @@ abstract class user_operations_types implements users_control {
      * @param int $id of the item to delete from the db
      */
     public function delete($id) {
-        db::query("DELETE FROM '{$this->db_mapping['table_name']}' WHERE '{$this->db_mapping['id_field_name']}' = '{$id}' LIMIT 1;");
+        db::query("DELETE FROM `{$this->db_mapping['table_name']}` WHERE '{$this->db_mapping['id_field_name']}' = '{$id}' LIMIT 1;");
     }
 
 }

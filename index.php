@@ -17,8 +17,10 @@ class WebApp implements UserInterface {
     }
 
     public function getContent($page) {
-        $content = "<h1>Welcome to the " . ucwords($page) . " page</h1>";
-        return $content;
+        if (!is_file($page)) {
+            $page = "<h1>" . ucwords($page) . "</h1>";
+        }
+        return $page;
     }
 
 }
@@ -29,20 +31,16 @@ $menu_details = array(
     array("menu_link" => "interface.php?page=contact", "menu_caption" => "Contact Us"),
     array("menu_link" => "interface.php?page=faq", "menu_caption" => "FAQ"),
 );
+
 $objWebApp = new WebApp();
 $menu = $objWebApp->setMenu($menu_details);
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
-} else {
-    $page = "home";
-}
-$content = $objWebApp->getContent($page);
+$content = $objWebApp->getContent($content);
 ?>
 <html>
     <body>
         <div><?php echo $menu; ?></div>
         <div style="min-height:600px; text-align: center;border:#000 1px solid;background-color:#EFEFEF">
-<?php echo $content ?>
+            <?php require $content ?>
         </div>
     </body>
 </html>

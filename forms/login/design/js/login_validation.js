@@ -1,6 +1,5 @@
 var tries_counter = 1;
-
-function check_exist(username, password){
+function check_exist(user_name, user_password){
     var funcReturned;
     $.ajaxSetup({
         async: false
@@ -8,16 +7,17 @@ function check_exist(username, password){
     $.post(
         'design/checkuser_exist.php',
         {
-            'username': username.value, 
-            'password': password.value
+            'username': user_name, 
+            'password': user_password
         },
         function(data) {
-            funcReturned = data;
+            funcReturned = jQuery.parseJSON(data);
         }
         );
     $.ajaxSetup({
         async: true
     });
+    alert(funcReturned);
     return funcReturned;
 }
 
@@ -26,6 +26,7 @@ function block(){
         window.location.href = "design/login_block.php";
     }
     tries_counter = tries_counter + 1;
+    $('#lbl_error').text("اسم المستخدم او كلمة السر غير صحيحة");
 }
 
 $(window).load(function() {
@@ -58,17 +59,11 @@ $(window).load(function() {
         });
         if (!$('#login').valid()) {
             block();
-            $('#lbl_error').text("البيانات خطا");
             return false;
-            
         } else {
-            if (!check_exist($('#username').val(), $('#password').val()))
-            {
+            if (!check_exist($('#username').val(), $('#password').val())){   
                 block();
-                $('#lbl_error').text("خطا");
                 return false;
-            }else{
-                return true;
             }
         }
     });

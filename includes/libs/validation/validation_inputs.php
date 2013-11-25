@@ -23,7 +23,7 @@ class fields_validation {
      * @return bool
      */
 
-    public function checkMinTextLength($text, $length) {
+    public static function checkMinTextLength($text, $length) {
         $checker = TRUE;
         if (strlen($text) < $length) {
             $checker = FALSE;
@@ -36,7 +36,7 @@ class fields_validation {
      * @return bool
      */
 
-    public function checkMaxTextLength($text, $length) {
+    public static function checkMaxTextLength($text, $length) {
         $checker = TRUE;
         if (mb_strlen($text, 'utf8') > $length) {
             $checker = FALSE;
@@ -48,7 +48,7 @@ class fields_validation {
      * check the text isn't start with a number
      */
 
-    public function checkTextstart($text) {
+    public static function checkTextstart($text) {
         $checker = TRUE;
         if (preg_match('/^\d/', $text) === 1) {
             $checker = FALSE;
@@ -62,7 +62,7 @@ class fields_validation {
       Returns true if the email address has the email
       address format and the domain exists.
      */
-    public function validEmail($email) {
+    public static function validEmail($email) {
         $isValid = true;
         $atIndex = strrpos($email, "@");
         if (is_bool($atIndex) && !$atIndex) {
@@ -110,7 +110,7 @@ class fields_validation {
      * check two object equivalnce
      */
 
-    public function checkTxtEquivalence($obj1, $obj2) {
+    public static function checkTxtEquivalence($obj1, $obj2) {
         $checker = TRUE;
         if (strcmp($obj1, $obj2) != 0) {
             $checker = FALSE;
@@ -118,7 +118,7 @@ class fields_validation {
         return $checker;
     }
 
-    public function checkIsNumber($text) {
+    public static function checkIsNumber($text) {
         $checker = TRUE;
         if (!is_numeric($text)) {
             $checker = FALSE;
@@ -130,7 +130,7 @@ class fields_validation {
      * check the phone number
      */
 
-    public function checkPhoneNumber($phonetxt) {
+    public static function checkPhoneNumber($phonetxt) {
         $checker = TRUE;
         if (!preg_match("/^([2]-)?[0-9]{4}-[0-9]{3}-[0-9]{4}$/i", $phonetxt)) {
             $checker = FALSE;
