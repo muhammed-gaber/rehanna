@@ -6,7 +6,11 @@ class fields_validation {
      * @return bool
      */
 
-    public function isTextChars($text) {
+    public function __construct() {
+        new fields_validation();
+    }
+
+    public static function isTextChars($text) {
         $checker = TRUE;
         if (ctype_alpha(!$text)) {
             $checker = FALSE;
@@ -52,13 +56,13 @@ class fields_validation {
         return $checker;
     }
 
-     /**
+    /**
       Validate an email address.
       Provide email address (raw input)
       Returns true if the email address has the email
       address format and the domain exists.
      */
- public function validEmail($email) {
+    public function validEmail($email) {
         $isValid = true;
         $atIndex = strrpos($email, "@");
         if (is_bool($atIndex) && !$atIndex) {
@@ -113,7 +117,7 @@ class fields_validation {
         }
         return $checker;
     }
-       
+
     public function checkIsNumber($text) {
         $checker = TRUE;
         if (!is_numeric($text)) {
