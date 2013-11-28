@@ -1,60 +1,109 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>jQuery Simple Validation in Registration Form | istockphp.com</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="js/jquery-1.9.1.js"> </script>
-<script type="text/javascript" src="js/script.js"></script>
-</head>
+    <head>
+        <meta charset="utf-8">
 
-<body>
-	<div id="wrap"> <!--wrap start-->
-    	<div id="wrap2">  <!--wrap2 start-->
-       
-       	<h2 class="free_account">Create an free account</h2> 
-        
-    	<form action="process.php" method="post" id="register_form">
-        	
-                <p class="validate_msg">Please fix the errors below!</p>
-                
-                <p> <label for="name">First Name</label> <input name="fname" type="text" /> <span class="val_fname"></span> </p> 
-                <p> <label for="lname">Last Name</label>  <input name="lname" type="text" />  <span class="val_lname"></span> </p>
-                <p> <label for="email">Your Email</label> <input name="email" type="text" /> <span class="val_email"></span> </p>
-                <p> <label for="password">Password</label>  <input name="password" type="password" /> <span class="val_pass"></span> </p>
-                <p> <label for="repassword">Retype Password</label>  <input name="repassword" type="password" /> <span class="val_pass2"></span> </p>
-                <p> <label for="phone">Phone No.</label> <input name="phone" type="text" /> <span class="val_phone"></span> </p>
-                <p> <label for="birth">Birth Date</label>  
-                            	<select name="month">
-                    				<option value="">Month</option>
-                                    <?php 
-										$months = array('1' => 'Jan', '2' => 'Feb', '3' => 'Mar', '4' => 'Apr', '5' => 'May', '6' => 'June', '7' => 'July ', '8' => 'Aug', '9' => 'Sept', '10' => 'Oct', '11' => 'Nov', '12' => 'Dec');
-										foreach($months as $m => $month) {
-									?>
-                                    <option value="<?php echo $m; ?>"><?php echo $month; ?></option>
-                                    <?php } ?>
-                                </select>
-                                <select name="day">
-                    				<option value="">Day</option>
-                                    <?php for($day = 1; $day < 32; $day++) { ?>
-                                    <option value="<?php echo $day; ?>"><?php echo $day; ?></option>
-                                    <?php } ?>
-                                </select>
-                                <select name="year">
-                    				<option value="">Year</option>
-                                    <?php 
-										$year = date("Y");
-										for($j = $year; $j > 1949; $j--) { 
-									?>
-                                    <option value="<?php echo $j; ?>"><?php echo $j; ?></option>
-                                    <?php } ?>
-                                </select>
-                <span class="val_bday"></span> </p>
-                <p> <label for="gender">Gender</label>  <input name="gender" type="radio" value="m" /> Male <input name="gender" type="radio" value="f" /> Female <span class="val_gen"></span> </p>
-            <input type="submit" name="submit" value="Register">
-        </form>
-       
-        </div>  <!--wrap2 end-->
-    </div>  <!--wrap start-->
-</body>
+        <meta name="author" content="Amsul - http://amsul.ca">
+
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+
+        <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.css" id="theme_base">
+        <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.date.css" id="theme_date">
+        <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.time.css" id="theme_time">
+
+        <title>ريحانة للعطور| موضف جديد </title>
+
+        <script type='text/javascript' src='<?=design_url?>/js/jquery.js'></script>
+        <link rel="stylesheet" type="text/css" href="<?=design_url?>/css/login_style.css">
+        <script type='text/javascript' src="<?=design_url?>/js/jquery.validate.js"></script>
+        <script type="text/javascript" src="<?=design_url?>/js/register_validation.js"></script>
+
+    </head>
+    <script>
+        $(selector).datepick();
+        $(selector).datepick({dateFormat: 'yyyy-mm-dd'});
+    </script>
+    <body>
+        <div id="wrap"> <!--wrap start-->
+            <div id="wrap2">  <!--wrap2 start-->
+
+                <h2 class="free_account">Create an free account</h2> 
+
+                <form action="" method="post" id="register_form">
+
+                    <p class="validate_msg">Please fix the errors below!</p>
+                    <fieldset id="first">
+                        <p> <label for="name">Full Name</label> <input name="fullname" type="text" /> 
+                            <label class="error" for="fullname" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="name">Address</label> <input name="address" type="text" /> 
+                            <label class="error" for="address" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="email">Email</label> <input name="email" type="text" />
+                            <label class="error" for="email" style="color: red"></label>
+                            <span class="val_email"></span> </p>
+                        <p> <label for="name">Phone Num.1</label> <input name="Phone_Num_1" type="text" /> 
+                            <label class="error" for="Phone_Num_1" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="name">Phone Num.2</label> <input name="Phone_Num_2" type="text" /> 
+                            <label class="error" for="Phone_Num_2" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="name">Phone Num.3</label> <input name="Phone_Num_3" type="text" />
+                            <label class="error" for="Phone_Num_3" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="name">Certification</label> <input name="certificate" type="text" />
+                            <label class="error" for="certificate" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="gender">Birth Date</label>
+                            <input name="birthdate" class="fieldset__input js__datepicker" type="text" placeholder="Birth Date">
+                            <label class="error" for="birthdate" style="color: red"></label>
+                            <span class="val_bday"></span> </p>
+                        <p> <label for="gender">Gender</label>  <input name="gender" type="radio" value="m" /> Male <input name="gender" type="radio" value="f" /> Female 
+                            <label class="error" for="gender" style="color: red"></label>
+                            <span class="val_gen"></span> </p>
+                    </fieldset>
+                    <fieldset id="second">
+                        <p> <label for="name">Job</label> <input name="job" type="text" /> 
+                            <label class="error" for="job" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="name">salary</label> <input name="salary" type="text" /> 
+                            <label class="error" for="salary" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                    </fieldset>
+                    <fieldset id="third">
+                        <p> <label for="name">User Name</label> <input name="username" type="text" /> 
+                            <label class="error" for="username" style="color: red"></label>
+                            <span class="val_fname"></span> </p> 
+                        <p> <label for="password">Password</label>  <input name="password"  type="password" /> 
+                            <label class="error" for="password" style="color: red"></label>
+                            <span class="val_pass"></span> </p>
+                        <p> <label for="repassword">Retype Password</label>  <input name="repassword" type="password" /> 
+                            <label class="error" for="repassword" style="color: red"></label>
+                            <span class="val_pass2"></span> </p>
+                    </fieldset>
+                    <script src="<?=design_url?>/plugins/datepicker/lib/picker.js"></script>
+                    <script src="<?=design_url?>/plugins/datepicker/lib/picker.date.js"></script>
+                    <script src="<?=design_url?>/plugins/datepicker/lib/picker.time.js"></script>
+                    <script src="<?=design_url?>/plugins/datepicker/lib/legacy.js"></script>
+                    <script src="<?=design_url?>/plugins/datepicker/demo/scripts/main.js"></script>
+                    <script type="text/javascript">
+                        var _gaq = _gaq || [];
+                        _gaq.push(['_setAccount', 'UA-36321179-2']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                        })();
+                    </script>
+                    <input id="submit" type="submit" name="submit" value="Register">
+                </form>
+
+            </div>  <!--wrap2 end-->
+        </div>  <!--wrap start-->
+    </body>
 </html>

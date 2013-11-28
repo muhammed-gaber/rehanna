@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>ريحانة للعطور| عميل جديد </title>
+        <title>ريحانة للعطور| تسجيل دخول </title>
 
         <script type='text/javascript' src='<?=design_url?>/js/jquery.js'></script>
         <link rel="stylesheet" type="text/css" href="<?=design_url?>/css/login_style.css">
