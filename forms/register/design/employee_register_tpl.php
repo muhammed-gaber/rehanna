@@ -15,18 +15,15 @@
         <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.date.css" id="theme_date">
         <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.time.css" id="theme_time">
 
-        <title>ريحانة للعطور| موضف جديد </title>
+        <title>ريحانة للعطور| موضف جديد</title>
 
         <script type='text/javascript' src='<?=design_url?>/js/jquery.js'></script>
         <link rel="stylesheet" type="text/css" href="<?=design_url?>/css/login_style.css">
         <script type='text/javascript' src="<?=design_url?>/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="<?=design_url?>/js/register_validation.js"></script>
+        <script type="text/javascript" src="<?=design_url?>/js/emp_register_validation.js"></script>
 
     </head>
-    <script>
-        $(selector).datepick();
-        $(selector).datepick({dateFormat: 'yyyy-mm-dd'});
-    </script>
+
     <body>
         <div id="wrap"> <!--wrap start-->
             <div id="wrap2">  <!--wrap2 start-->

@@ -16,7 +16,7 @@ $menu_details = array(
     array("menu_link" => "interface.php?page=faq", "menu_caption" => "FAQ"),
 );
 
-$content = design_url . '/register_tpl.php';
+$content = design_url . '/traders_register_tpl.php';
 
 
 //include the tpl
