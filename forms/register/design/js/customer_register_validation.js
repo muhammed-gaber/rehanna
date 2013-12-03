@@ -3,24 +3,19 @@ $(window).load(function() {
         $('#register_form').validate({
             rules: {
                 fullname: {
-                    required: true,
                     minlength: 4,
                     maxlength: 150,
-                    textonly: true
+                    textonly : true,
+                    Space    :true
                 },
                 address:{
-                    required: true,
-                    minlength: 5,
-                    maxlength: 255
+                    minlength: 5
                 },
                 email:{
-                    required: true,
                     minlength: 5,
-                    maxlength: 255,
-                    email:true
+                    email    :true
                 },
                 Phone_Num:{
-                    required: true,
                     minlength: 6,
                     maxlength: 15
                 },
@@ -45,20 +40,57 @@ $(window).load(function() {
                 
             },
             messages: {
-               
-        }
+                fullname: {
+                    minlength:jQuery.format("الاسم ثنائى على الاقل"),
+                    maxlength:jQuery.format("الاسم تعدى الحد لاقصى"),
+                    textonly :jQuery.format("الاسم حروف فقط"),
+                    Space    :jQuery.format("ادخل الاسم ثنائى على الاقل")
+                },
+                address:{
+                    minlength:jQuery.format("العنوان غير كافى")
+                },
+                email:{
+                    minlength:jQuery.format("البريد الالكترونى غير صحيح"),
+                    email    :jQuery.format("العنوان غير كافى")
+                },
+                Phone_Num:{
+                    minlength:jQuery.format("رقم الهاتف غير صحيح"),
+                    maxlength:jQuery.format("رقم الهاتف غير صحيح")
+                },
+                gender:{
+                    required: jQuery.format("اختار نوع العميل")
+                },
+                job_type:{
+                    required: jQuery.format("اختار نوع المهنة")
+                },
+                married:{
+                    required: jQuery.format("اختر الحالة الاجتماعية")
+                },
+                choose_category:{
+                    required: jQuery.format("اختر نوع ال")
+                },
+                choose_type:{
+                    required: jQuery.format("رقم الهاتف غير صحيح")
+                },
+                concentration:{
+                    required: jQuery.format("رقم الهاتف غير صحيح")
+                }
+            }
         });
         jQuery.validator.addMethod(
             "textonly", 
             function(value, element)
             {
                 valid = false;
-                check = /[^-\.a-zA-Z\s\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02AE]/.test(value);
+                check = /^[\w ]+$/.test(value);
                 if(check==false)
                     valid = true;
                 return this.optional(element) || valid;
-            }, 
-            jQuery.format("Please only enter letters, spaces, periods, or hyphens."));
+            });
+                
+        jQuery.validator.addMethod("Space", function(value, element) { 
+            return value.indexOf(" ") >0; 
+        });
         if (!$('#register_form').valid()) {
            
             return false;
