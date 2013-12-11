@@ -4,6 +4,7 @@ session_start();
 //define the root file then include the file includes 
 define("INC", "../../");
 require INC . "includes/directors.php";
+require root . '/libs/db.php';
 require root . '/libs/functions/user_functions.php';
 require root . '/libs/users/users_operation.php';
 
@@ -16,19 +17,14 @@ $menu_details = array(
     array("menu_link" => "interface.php?page=faq", "menu_caption" => "FAQ"),
 );
 
-$content = design_url . '/login_tpl.php';
+
 
 //code
-
 $error = TRUE;
+$do = isset($_GET['do']) ? $_GET['do'] : null;
+switch ($do) {
 
-function redirect($location) {
-    header('location:' . $location . '');
-    exit();
-}
-
-switch ($_GET["do"]) {
-    case "login":
+    default :
         if ($_POST) {
             $username = isset($_POST["username"]) ? filter_var($_POST["username"]) : null;
             $password = isset($_POST["password"]) ? filter_var($_POST["password"]) : null;
@@ -41,24 +37,23 @@ switch ($_GET["do"]) {
             $info = $_SESSION["id"];
             $user_type = $info["user_type"];
         } else {
-            $user_type = null;
-            return;  //404
+            $content = design_url . '/login_tpl.php';
         }
 
-
-        $user_info = users::selectUSerByUsernameAndPassword($username, $password);
-        $user_ip = user_function::getRealIpAddress();
-        users::login($users_info["sys_users_id"], $user_ip);
-        $_SESSION["user_info"] = $users_info;
-        setcookie('user_id', sq(session_id()), time() + ((3600 * 24)), '/');
-        $content = '../Home/index.php';
+        if (!empty($username) || !empty($password)) {
+            $user_info = users::selectUSerByUsernameAndPassword($username, $password);
+            $user_ip = user_function::getRealIpAddress();
+            users::login($users_info["sys_users_id"], $user_ip);
+            $_SESSION["user_info"] = $users_info;
+            setcookie('user_id', sq(session_id()), time() + ((3600 * 24)), '/');
+            $content = '../Home/index.php';
+        } else {
+            $content = design_url . '/login_tpl.php';
+        }
         break;
     case "logout":
         unset($_SESSION);
         setcookie('user_id', 1, time() - ((3600 * 24)), '/');
-        break;
-    default:
-        echo "no operation";  //404
         break;
 }
 
