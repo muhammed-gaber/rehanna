@@ -4,11 +4,8 @@ session_start();
 //define the root file then include the file includes 
 define("INC", "../../");
 require INC . "includes/directors.php";
-require root . '/libs/db.php';
 require root . '/libs/functions/user_functions.php';
 require root . '/libs/users/users_operation.php';
-require root . '/libs/validation/save_inputs.php';
-require root . '/libs/validation/validation_inputs.php';
 
 
 //page
@@ -25,56 +22,45 @@ $content = design_url . '/login_tpl.php';
 
 $error = TRUE;
 
-function username_validation($user_name) {
-    if (empty($user_name)) {
-        return FALSE;
-    }if (!fields_validation::checkTextstart($user_name)) {
-        return FALSE;
-    }if (!fields_validation::checkMinTextLength($user_name, 5)) {
-        return FALSE;
-    }if (!fields_validation::checkMaxTextLength($user_name, 25)) {
-        return FALSE;
-    }
-    return TRUE;
+function redirect($location) {
+    header('location:' . $location . '');
+    exit();
 }
 
-function password_validation($pass) {
-    if (empty($pass)) {
-        return FALSE;
-    }if (!fields_validation::checkMinTextLength($pass, 3)) {
-        return FALSE;
-    }if (!fields_validation::checkMaxTextLength($pass, 25)) {
-        return FALSE;
-    }
-    return TRUE;
-}
+switch ($_GET["do"]) {
+    case "login":
+        if ($_POST) {
+            $username = isset($_POST["username"]) ? filter_var($_POST["username"]) : null;
+            $password = isset($_POST["password"]) ? filter_var($_POST["password"]) : null;
+            if ($username == NULL || $password == NULL) {
+                $error = FALSE;
+                return;
+            }
+        } elseif (isset($_COOKIE['id'])) {
+            session_id($_COOKIE["id"]);
+            $info = $_SESSION["id"];
+            $user_type = $info["user_type"];
+        } else {
+            $user_type = null;
+            return;  //404
+        }
 
-if ($_POST) {
-    $username = isset($_POST["username"]) ? save_inputs::secure($_POST["username"]) : null;
-    $password = isset($_POST["password"]) ? save_inputs::secure($_POST["password"]) : null;
-    if (!username_validation($username) || !password_validation($password)) {
-        $error = FALSE;
-        return;
-    }
-    $users_info = users::select_by_username_password($username, $password);
-    if (count($users_info) == 0) {
-        $error = FALSE;
-    }
-    $xusers_info = users::check_login($users_info["sys_users_id"]);
-    if (count($xusers_info) > 0) {
-        $error = FALSE;
-        $_SESSION["xusers_info"] = $xusers_info;
-        $content = design_url .'/aleardy_login.php';
-    }
-    if ($error) {
+
+        $user_info = users::selectUSerByUsernameAndPassword($username, $password);
         $user_ip = user_function::getRealIpAddress();
         users::login($users_info["sys_users_id"], $user_ip);
         $_SESSION["user_info"] = $users_info;
+        setcookie('user_id', sq(session_id()), time() + ((3600 * 24)), '/');
         $content = '../Home/index.php';
-    }
+        break;
+    case "logout":
+        unset($_SESSION);
+        setcookie('user_id', 1, time() - ((3600 * 24)), '/');
+        break;
+    default:
+        echo "no operation";  //404
+        break;
 }
-
-
 
 //include the tpl
 require INC . '/index.php';

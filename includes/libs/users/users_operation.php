@@ -6,12 +6,15 @@ class users {
         new users();
     }
 
-    static function select_by_username_password($username, $password) {
-        $sql = "SELECT `sys_users_id`,`sys_users_name`,`sys_users_type`,`is_blocked` FROM `rehanna_sys_users` WHERE  `sys_users_name`='" . $username . "' and `sys_users_password`=md5('" . $password . "') limit 1";
+    static function selectUSerByUsernameAndPassword($username, $password) {
+        $sql = "SELECT  `sys_users_id` ,  `sys_users_name` ,  `sys_users_type` ,  `is_blocked` , (
+SELECT  `login_ip` FROM  `rehanna_users`.`login_logs` WHERE  `user_id` =  `rehanna_sys_users`.`sys_users_id` 
+AND  `is_logged` =1 ORDER BY  `login_date` DESC LIMIT 1) FROM  `rehanna_users`.`rehanna_sys_users` 
+WHERE  `sys_users_name` =  '" . $username . "' AND  `sys_users_password` = MD5('" . $password . "') LIMIT 1";
         return db::getInstance()->fetch_row($sql);
     }
 
-    static function login($user_id, $user_ip) {
+    static function insertLogInLogs($user_id, $user_ip) {
         $sql = "INSERT INTO `login_logs`(`login_date`, `user_id`, `login_ip`, `is_logged`)
                 VALUES ('" . time() . "','" . $user_id . "','" . $user_ip . "','1')";
         db::getInstance()->query($sql);

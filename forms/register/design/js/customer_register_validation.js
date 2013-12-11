@@ -82,7 +82,7 @@ $(window).load(function() {
             function(value, element)
             {
                 valid = false;
-                check = /^[\w ]+$/.test(value);
+                check =/^[a-zA-Z_0-9 ]\x00-\x80+$/.test(value);
                 if(check==false)
                     valid = true;
                 return this.optional(element) || valid;
@@ -92,7 +92,6 @@ $(window).load(function() {
             return value.indexOf(" ") >0; 
         });
         if (!$('#register_form').valid()) {
-           
             return false;
         }
     });
