@@ -130,6 +130,11 @@ class inputs_validation {
         } elseif (!fields_validation::checkMaxTextLength($username, $maxlength)) {
             self::$errors["max"] = 1;
         }
+        
+        $check_exsist= users::select_username($username);
+        if(!empty($check_exsist)){
+            self::$errors["exist"] = 1;
+        }
         return self::$errors;
     }
     
@@ -145,6 +150,7 @@ class inputs_validation {
         } elseif (!fields_validation::checkMaxTextLength($password, $maxlength)) {
             self::$errors["max"] = 1;
         }
+        
         return self::$errors;
     }
 
