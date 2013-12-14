@@ -23,7 +23,7 @@
                             <label class="error" for="gender" style="color: red"></label>
                             <span class="val_gen"></span> </p>
                         <p> <label for="job_type">Job Type</label>  <input name="job_type" type="radio" value="1" /> Mental <input name="job_type" type="radio" value="2" /> Muscular 
-                            <label class="error" for="married" style="color: red"></label>
+                            <label class="error" for="job_type" style="color: red"></label>
                             <span class="val_gen"></span> </p>
                         <p> <label for="married">Married</label>  <input name="married" type="radio" value="1" /> Single <input name="married" type="radio" value="2" /> Married 
                             <label class="error" for="married" style="color: red"></label>
@@ -35,11 +35,11 @@
                             <span class="val_gen"></span> </p>
                         <p> <label for="choose_type">Choose Type</label>  <input name="choose_type" type="radio" value="1" /> Fruits <input name="choose_type" type="radio" value="2" /> Flowers 
                             <input name="choose_type" type="radio" value="3" /> Woods <input name="choose_type" type="radio" value="4" /> Spices <input name="choose_type" type="radio" value="5" /> organic 
-                            <label class="error" for="choose_category" style="color: red"></label>
+                            <label class="error" for="choose_type" style="color: red"></label>
                             <span class="val_gen"></span> </p>
                         <p> <label for="concentration">Concentration</label>  <input name="concentration" type="radio" value="1" /> Light <input name="concentration" type="radio" value="2" /> Medium 
                             <input name="concentration" type="radio" value="3" /> Strong<input name="concentration" type="radio" value="4" /> Super Strong
-                            <label class="error" for="choose_category" style="color: red"></label>
+                            <label class="error" for="concentration" style="color: red"></label>
                             <span class="val_gen"></span> </p>
                     </fieldset>
                     <fieldset id="third">

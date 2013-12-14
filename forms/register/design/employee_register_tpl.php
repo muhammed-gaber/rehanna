@@ -11,16 +11,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
 
-        <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.css" id="theme_base">
-        <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.date.css" id="theme_date">
-        <link rel="stylesheet" href="<?=design_url?>/plugins/datepicker/lib/themes/default.time.css" id="theme_time">
+        <link rel="stylesheet" href="<?= design_url ?>/plugins/datepicker/lib/themes/default.css" id="theme_base">
+        <link rel="stylesheet" href="<?= design_url ?>/plugins/datepicker/lib/themes/default.date.css" id="theme_date">
+        <link rel="stylesheet" href="<?= design_url ?>/plugins/datepicker/lib/themes/default.time.css" id="theme_time">
 
         <title>ريحانة للعطور| موضف جديد</title>
 
-        <script type='text/javascript' src='<?=design_url?>/js/jquery.js'></script>
-        <link rel="stylesheet" type="text/css" href="<?=design_url?>/css/login_style.css">
-        <script type='text/javascript' src="<?=design_url?>/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="<?=design_url?>/js/emp_register_validation.js"></script>
+        <script type='text/javascript' src='<?= design_url ?>/js/jquery.js'></script>
+        <script type='text/javascript' src='<?= design_url ?>/js/function.js'></script>
+        <link rel="stylesheet" type="text/css" href="<?= design_url ?>/css/login_style.css">
+        <script type='text/javascript' src="<?= design_url ?>/js/jquery.validate.js"></script>
+        <script type="text/javascript" src="<?= design_url ?>/js/emp_register_validation.js"></script>
 
     </head>
 
@@ -64,7 +65,15 @@
                             <span class="val_gen"></span> </p>
                     </fieldset>
                     <fieldset id="second">
-                        <p> <label for="name">Job</label> <input name="job" type="text" /> 
+                        <p> <label for="job">Job</label> <input id="job" name="job" type="hidden" /> 
+                            
+                            <select id="jobs" name="jobs">
+                                <option value="">اختر وظيفة</option>
+                                <option value="1">عامل</option>
+                                <option value="2">مساعد بائع</option>
+                                <option value="3">بائع</option>
+                                <option value="4">امين مخزن</option>     
+                            </select>
                             <label class="error" for="job" style="color: red"></label>
                             <span class="val_fname"></span> </p> 
                         <p> <label for="name">salary</label> <input name="salary" type="text" /> 
@@ -82,20 +91,23 @@
                             <label class="error" for="repassword" style="color: red"></label>
                             <span class="val_pass2"></span> </p>
                     </fieldset>
-                    <script src="<?=design_url?>/plugins/datepicker/lib/picker.js"></script>
-                    <script src="<?=design_url?>/plugins/datepicker/lib/picker.date.js"></script>
-                    <script src="<?=design_url?>/plugins/datepicker/lib/picker.time.js"></script>
-                    <script src="<?=design_url?>/plugins/datepicker/lib/legacy.js"></script>
-                    <script src="<?=design_url?>/plugins/datepicker/demo/scripts/main.js"></script>
+                    <script src="<?= design_url ?>/plugins/datepicker/lib/picker.js"></script>
+                    <script src="<?= design_url ?>/plugins/datepicker/lib/picker.date.js"></script>
+                    <script src="<?= design_url ?>/plugins/datepicker/lib/picker.time.js"></script>
+                    <script src="<?= design_url ?>/plugins/datepicker/lib/legacy.js"></script>
+                    <script src="<?= design_url ?>/plugins/datepicker/demo/scripts/main.js"></script>
                     <script type="text/javascript">
-                        var _gaq = _gaq || [];
-                        _gaq.push(['_setAccount', 'UA-36321179-2']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-                        })();
+                                var _gaq = _gaq || [];
+                                _gaq.push(['_setAccount', 'UA-36321179-2']);
+                                _gaq.push(['_trackPageview']);
+                                (function() {
+                                    var ga = document.createElement('script');
+                                    ga.type = 'text/javascript';
+                                    ga.async = true;
+                                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                                    var s = document.getElementsByTagName('script')[0];
+                                    s.parentNode.insertBefore(ga, s);
+                                })();
                     </script>
                     <input id="submit" type="submit" name="submit" value="Register">
                 </form>
