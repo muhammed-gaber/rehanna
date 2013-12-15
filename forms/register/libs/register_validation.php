@@ -1,43 +1,37 @@
 <?php
 
-include_once 'validation_inputs.php';
-
 class inputs_validation {
 
-    static $errors = array();
+    static $errors = null;
 
-    static function vaidateFullName($fullname, $minlength = 4, $maxlength = 75, $required = null) {
-        if ($required) {
-            if (empty($fullname)) {
-                self::$errors["empty"] = 1;
+    static function vaidateFullName($fullname, $required = null, $minlength = 4, $maxlength = 75) {
+        if (empty($fullname)) {
+            if ($required) {
+                self::$errors = "empty";
                 return self::$errors;
             }
-        }
-        if (!fields_validation::checkMinTextLength($fullname, $minlength)) {
-            self::$errors["min"] = 1;
+        } elseif (!fields_validation::checkMinTextLength($fullname, $minlength)) {
+            self::$errors = "min";
         } elseif (!fields_validation::checkMaxTextLength($fullname, $maxlength)) {
-            self::$errors["max"] = 1;
-        } elseif (!preg_match('/^[a-zA-Z_0-9 ]\x00-\x80+$/', $fullname)) {
-            self::$errors["letter"] = 1;
-        } elseif (!preg_match('/\s/', $fullname)) {
-            self::$errors["space"] = 1;
+            self::$errors = "max";
+        } elseif (!preg_match('/[^[\w ]+$/i', $fullname)||!preg_match('/\s/', $fullname) ) {
+            self::$errors = "formate";
         }
         return self::$errors;
     }
 
-    static function validateAddress($address, $minlength = 4, $maxlength = 255, $required = null) {
+    static function validateAddress($address, $required = null, $minlength = 4, $maxlength = 255) {
         if ($required) {
             if (empty($address)) {
-                self::$errors["empty"] = 1;
+                self::$errors = "empty";
                 return self::$errors;
             }
-        }
-        if (!fields_validation::checkMinTextLength($address, $minlength)) {
-            self::$errors["min"] = 1;
+        } elseif (!fields_validation::checkMinTextLength($address, $minlength)) {
+            self::$errors = "min";
         } elseif (!fields_validation::checkMaxTextLength($address, $maxlength)) {
-            self::$errors["max"] = 1;
+            self::$errors = "max";
         } elseif (!preg_match('/\s/', $address)) {
-            self::$errors["space"] = 1;
+            self::$errors = "space";
         }
         return self::$errors;
     }
@@ -45,36 +39,34 @@ class inputs_validation {
     static function validateEmail($email, $required = null) {
         if ($required) {
             if (empty($email)) {
-                self::$errors["empty"] = 1;
+                self::$errors = "empty";
                 return self::$errors;
             }
-        }
-        if (!fields_validation::validEmail($email)) {
-            self::$errors["email"] = 1;
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            self::$errors = "formate";
         }
         return self::$errors;
     }
 
-    static function isChecked($value) {
+    static function validateChecked($value) {
         if (empty($value)) {
-            self::$errors["checked"] = 1;
+            self::$errors = "checked";
         }
         return self::$errors;
     }
 
-    static function phoneNumber($phone, $minlength = 6, $maxlength = 13, $required = null) {
-        if ($required) {
-            if (empty($phone)) {
-                self::$errors["empty"] = 1;
-                return self::$errors;
+    static function validatePhoneNumber($phone, $required = null, $minlength = 6, $maxlength = 13) {
+
+        if (empty($phone)) {
+            if ($required) {
+                self::$errors = "empty";
             }
-        }
-        if (!fields_validation::checkMinTextLength($phone, $minlength)) {
-            self::$errors["min"] = 1;
+        } elseif (!fields_validation::checkMinTextLength($phone, $minlength)) {
+            self::$errors = "min";
         } elseif (!fields_validation::checkMaxTextLength($phone, $maxlength)) {
-            self::$errors["max"] = 1;
+            self::$errors = "max";
         } elseif (!fields_validation::checkPhoneNumber($phone)) {
-            self::$errors["formate"] = 1;
+            self::$errors = "formate";
         }
         return self::$errors;
     }
@@ -82,12 +74,11 @@ class inputs_validation {
     static function validateCertification($certification, $required = null) {
         if ($required) {
             if (empty($certification)) {
-                self::$errors["empty"] = 1;
+                self::$errors = "empty";
                 return self::$errors;
             }
-        }
-        if (!preg_match('/^[a-zA-Z_0-9 ]\x00-\x80+$/', $certification)) {
-            self::$errors["letter"] = 1;
+        } elseif (!preg_match('/^[a-zA-Z_0-9 ]\x00-\x80+$/', $certification)) {
+            self::$errors = "letter";
         }
         return self::$errors;
     }
@@ -95,12 +86,11 @@ class inputs_validation {
     static function validateDate($date, $required = null) {
         if ($required) {
             if (empty($date)) {
-                self::$errors["empty"] = 1;
+                self::$errors = "empty";
                 return self::$errors;
             }
-        }
-        if (!fields_validation::validateDate($date, 'd mmmm, yyyy')) {
-            self::$errors["letter"] = 1;
+        } elseif (!fields_validation::validateDate($date, 'd mmmm, yyyy')) {
+            self::$errors = "formate";
         }
         return self::$errors;
     }
@@ -108,50 +98,61 @@ class inputs_validation {
     static function validateSalary($salary, $required = null) {
         if ($required) {
             if (empty($salary)) {
-                self::$errors["empty"] = 1;
+                self::$errors = "empty";
             }
-        }
-
-        if (!fields_validation::checkIsNumber($salary)) {
-            self::$errors["letter"] = 1;
+        } elseif (!fields_validation::checkIsNumber($salary)) {
+            self::$errors = "letter";
         }
         return self::$errors;
     }
 
-    static function validateUserName($username, $minlength = 4, $maxlength = 25, $required = null) {
+    static function validateUserName($username, $required = null, $minlength = 4, $maxlength = 25) {
         if ($required) {
             if (empty($username)) {
-                self::$errors["empty"] = 1;
+                self::$errors = "empty";
             }
-        }
-
-        if (!fields_validation::checkMinTextLength($username, $minlength)) {
-            self::$errors["min"] = 1;
+        } elseif (!fields_validation::checkMinTextLength($username, $minlength)) {
+            self::$errors = "min";
         } elseif (!fields_validation::checkMaxTextLength($username, $maxlength)) {
-            self::$errors["max"] = 1;
-        }
-        
-        $check_exsist= users::select_username($username);
-        if(!empty($check_exsist)){
-            self::$errors["exist"] = 1;
+            self::$errors = "max";
+        } elseif (!self::checkUserExist($username)) {
+            self::$errors = "exist";
         }
         return self::$errors;
     }
-    
-        static function validatePassword($password, $minlength = 4, $maxlength = 25, $required = null) {
+
+    static function validatePassword($password, $required = null, $minlength = 4, $maxlength = 25) {
         if ($required) {
             if (empty($password)) {
-                self::$errors["empty"] = 1;
+                self::$errors = "empty";
             }
+        } elseif (!fields_validation::checkMinTextLength($password, $minlength)) {
+            self::$errors = "min";
+        } elseif (!fields_validation::checkMaxTextLength($password, $maxlength)) {
+            self::$errors = "max";
         }
 
-        if (!fields_validation::checkMinTextLength($password, $minlength)) {
-            self::$errors["min"] = 1;
-        } elseif (!fields_validation::checkMaxTextLength($password, $maxlength)) {
-            self::$errors["max"] = 1;
-        }
-        
         return self::$errors;
+    }
+
+    static function validateRePassword($password, $repassword, $required = null) {
+        if ($required) {
+            if (empty($password)) {
+                self::$errors = "empty";
+            }
+        } elseif (!fields_validation::checkTxtEquivalence($password, $repassword)) {
+            self::$errors = "equivalance";
+        }
+
+        return self::$errors;
+    }
+
+    static function checkUserExist($user_name) {
+        if (!users::select_username($user_name)) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 
 }
