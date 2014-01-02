@@ -48,6 +48,9 @@ $(window).load(function() {
                 gender: {
                     required: true
                 },
+                married: {
+                    required: true
+                },
                 job: {
                     required: true
                 },
@@ -115,6 +118,9 @@ $(window).load(function() {
                 },
                 gender: {
                     required: jQuery.format("اختر جنس الموظف")
+                },
+                married: {
+                    required: jQuery.format("اختر الحالة الاجتماعية")
                 },
                 job: {
                     required: jQuery.format("اختر الوظيفة")

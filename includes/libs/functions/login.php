@@ -1,5 +1,5 @@
 <?php
-$location=$_SERVER['HTTP_REFERER'];
+$location=@$_SERVER['HTTP_REFERER'];
 if ($_POST) {
     $username = isset($_POST["username"]) ? filter_var($_POST["username"]) : null;
     $password = isset($_POST["password"]) ? filter_var($_POST["password"]) : null;

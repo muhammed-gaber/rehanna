@@ -130,9 +130,9 @@ class fields_validation {
      * check the phone number
      */
 
-    public static function checkPhoneNumber($phonetxt) {
+    public static function checkPhoneNumber($phone) {
         $checker = TRUE;
-        if (!preg_match("/^([2]-)?[0-9]{4}-[0-9]{3}-[0-9]{4}$/i", $phonetxt)) {
+        if (!preg_match("/^[0-9]{11}+$/", $phone)) {
             $checker = FALSE;
         }
         return $checker;
@@ -143,5 +143,13 @@ class fields_validation {
         return $d && $d->format($format) == $date;
     }
 
-}
+    static function validateNumberBeginByZero($value) {
+        $value = preg_match('/^(0|(-{0,1}[1-9]\d*))$/', trim($value));
+        if ($value == 1) {
+            return true;
+        } else {
+            return $value;
+        }
+    }
 
+}

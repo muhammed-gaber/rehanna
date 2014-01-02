@@ -5,8 +5,9 @@ session_start();
 define("INC", "../../");
 require INC . "includes/directors.php";
 require root . '/libs/db.php';
+require root . '/libs/users/users_db.php';
 require root . '/libs/functions/user_functions.php';
-require root . '/libs/users/users_operation.php';
+
 
 
 //page

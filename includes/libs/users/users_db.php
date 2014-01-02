@@ -16,7 +16,7 @@ WHERE  `sys_users_name` =  '" . $username . "' AND  `sys_users_password` = MD5('
     }
 
     static function select_username($username) {
-        $sql = "SELECT `sys_users_id` FROM `rehanna_sys_users` WHERE `sys_users_name`=" . $username . " LIMIT 1";
+        $sql = "SELECT `sys_users_id` FROM `rehanna_sys_users` WHERE `sys_users_name`='" . $username . "' LIMIT 1";
         $res = db::getInstance()->fetch_row($sql);
         return $res["sys_users_id"];
     }
